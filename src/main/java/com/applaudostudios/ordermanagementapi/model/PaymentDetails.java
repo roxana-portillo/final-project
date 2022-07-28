@@ -9,7 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -18,16 +19,19 @@ import java.util.Date;
 @NoArgsConstructor
 public class PaymentDetails {
     @Id
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotEmpty(message = "Please enter amount")
     @Positive
-    private double amount;
+    private BigDecimal amount;
     @FutureOrPresent
-    private Date date;
+    private LocalDateTime date;
+
+    @Enumerated
+    @Column(name = "status_id")
     private Status status;
     @OneToOne
-    @JoinColumn(name = "id_order")
+    @JoinColumn(name = "order_id")
     private Order order;
 }

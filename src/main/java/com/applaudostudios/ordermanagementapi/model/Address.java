@@ -1,9 +1,6 @@
 package com.applaudostudios.ordermanagementapi.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 @Data
@@ -13,23 +10,23 @@ import javax.persistence.*;
 public class Address {
 
     @Id
-    @Column(name = "id_address", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String address1;
     private String address2;
-    private String city;
-    private String state;
-    private String country;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
+    private Country country;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "state_id")
+    private State state;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Address )) return false;
-        return Long.valueOf(id) != null && Long.valueOf(id).equals(((Address) o).getId());
-    }
 
     @Override
     public int hashCode() {

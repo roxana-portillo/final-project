@@ -1,8 +1,6 @@
 package com.applaudostudios.ordermanagementapi.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -15,13 +13,16 @@ import javax.validation.constraints.Size;
 public class OrderItem {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id_orderitem", updatable = false, nullable = false)
+  @Column(updatable = false, nullable = false)
   private Long id;
-  @NotEmpty(message = "Please enter password")
+  @NotEmpty(message = "Please enter quantity")
   @Size(min = 1)
   private int quantity;
-  @NotEmpty(message = "Please enter password")
-  private Long item;
+  @NotEmpty(message = "Please enter product")
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_id")
+  private Product item;
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "order_id")
   private Order order;
 }

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Data
 @Entity
@@ -17,18 +16,22 @@ import javax.validation.constraints.Size;
 public class DeliveryData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_deliverydata", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "id_address")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @NotEmpty(message = "Please enter order id")
-    private Long order;
-
-    private Status status;
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     private String trackNumber;
+
+    @Enumerated
+    @Column(name = "status_id")
+    private Status status;
 
 }

@@ -1,6 +1,5 @@
 package com.applaudostudios.ordermanagementapi.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,11 +21,10 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
   @Id
-  @Column(name = "id_user", updatable = false, nullable = false)
+  @Column(updatable = false, nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
@@ -49,27 +47,19 @@ public class User {
   private String password;
 
   @OneToMany(
+          fetch = FetchType.LAZY,
           mappedBy = "user",
           cascade = CascadeType.ALL,
           orphanRemoval = true
   )
-  private List<Address> addressList = new ArrayList<>();
+  private List<Address> addressList;
 
   @OneToMany(
+          fetch = FetchType.LAZY,
           mappedBy = "user",
           cascade = CascadeType.ALL,
           orphanRemoval = true
   )
-  private List<CreditCard> paymentMethods = new ArrayList<>();
-
-  public void addAddress(Address address) {
-    addressList.add(address);
-    address.setUser(this);
-  }
-
-  public void removeAdress(Address address) {
-    addressList.remove(address);
-    address.setUser(null);
-  }
+  private List<CreditCard> paymentMethods;
 
 }

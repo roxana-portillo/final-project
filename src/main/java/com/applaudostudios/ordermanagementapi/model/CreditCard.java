@@ -1,9 +1,6 @@
 package com.applaudostudios.ordermanagementapi.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 import javax.persistence.*;
@@ -35,6 +32,7 @@ public class CreditCard {
   @Future(message = "Invalid date")
   private Date expDate;
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
   private User user;
 
   public void setBalance(double balance) {

@@ -15,22 +15,25 @@ import javax.validation.constraints.Size;
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cartitem", nullable = false)
+    @Column(updatable = false, nullable = false)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "id_cart")
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @NotEmpty(message = "Please enter product id")
-    private Long product;
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 
     @Size(min = 1, message = "Invalid quantity")
     @NotEmpty(message = "Please enter a quantity")
     private int quantity;
+
     @OneToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "user_id")
     private User user;
 
 }

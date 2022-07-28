@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -14,12 +15,12 @@ import javax.validation.constraints.PositiveOrZero;
 public class Cart {
 
     @Id
-    @Column(name = "id_cart", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @PositiveOrZero(message = "Invalid amount")
-    private double total;
+    private BigDecimal total;
     @OneToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "user_id")
     private User user;
 }
