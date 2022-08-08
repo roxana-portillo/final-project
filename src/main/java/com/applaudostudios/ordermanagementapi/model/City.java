@@ -1,7 +1,5 @@
 package com.applaudostudios.ordermanagementapi.model;
-
 import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -9,14 +7,16 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 public class City {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
-    private Long id;
-    @NotEmpty(message = "Please enter a city name")
-    @Size(max = 25)
-    private String name;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "state_id")
-    private State state;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(updatable = false, nullable = false)
+  private Long id;
+
+  @NotEmpty(message = "Please enter a city name")
+  @Size(max = 25)
+  private String name;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "state_id")
+  private State state;
 }
