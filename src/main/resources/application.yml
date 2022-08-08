@@ -1,0 +1,9 @@
+keycloak:
+  realm: applaudostudios-oms-api
+  auth-server-url: http://localhost:8080
+  resource: oms-api-core-client
+  public-client: true
+
+
+
+
