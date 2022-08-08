@@ -1,38 +1,8 @@
-
-
-
-#SECURITY BASED CONFIGURATIONS
-app:
-  config:
-    keycloak:
-      url: http://localhost:8080
-      realm: applaudostudios-oms-api
-
-spring:
-  main:
-    allow-bean-definition-overriding: true
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/certs
-      client:
-        provider:
-          keycloak:
-            token-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/token
-            authorization-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/auth
-            user-name-attribute: preferred_username
-            user-info-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/userinfo
-            jwk-set-uri: ${app.config.keycloak.url}/realms/${app.config.keycloak.realm}/protocol/openid-connect/certs
-            user-info-authentication-method: header
-        registration:
-          oms-api-core-client:
-            provider: keycloak
-            client-id: oms-api-core-client
-            client-secret: h7rKjsN8mrTDis2jYxuyYouVEvmCt2A1
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
-            scope: openid
+keycloak:
+  realm: applaudostudios-oms-api
+  auth-server-url: http://localhost:8080
+  resource: oms-api-core-client
+  public-client: true
 
 
 
